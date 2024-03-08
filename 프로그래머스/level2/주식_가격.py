@@ -1,6 +1,7 @@
 def solution(prices):
     answer = [0 for _ in range(len(prices))]
     not_fallen = []
+    
     for idx, i in enumerate(prices):
         if idx == 0:
             # [자신의 값, 안 떨어진 기간, 자신의 위치]
