@@ -4,8 +4,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class 키패드_누르기 {
-    class Solution {
-        public String solution(int[] numbers, String hand) {
+    public static void main(String[] args) {
+        System.out.println(Solution.solution(
+                new int[]{1, 3, 4, 5, 8, 2, 1, 4, 5, 9, 5},
+                "right"
+        ));
+    }
+    static class Solution {
+        public static String solution(int[] numbers, String hand) {
             StringBuilder sb = new StringBuilder();
 //         *은 10으로
             int curLeft = 10;
@@ -29,6 +35,7 @@ public class 키패드_누르기 {
                 else{
                     int leftDist = 20;
                     int rightDist = 20;
+                    // left, right 에 포함되는지 검사, 아니라면 middle이기 떄문에 거리 측정
                     if(left.contains(curLeft)){
                         leftDist = Math.abs(left.indexOf(curLeft) - middle.indexOf(i)) + 1;
                     }else{
@@ -46,6 +53,7 @@ public class 키패드_누르기 {
                         curLeft = i;
                         sb.append("L");
                     }else{
+                        // 거리가 같을 경우, 왼손잡이 오른손잡이 구분
                         if(hand.equals("right")){
                             curRight = i;
                             sb.append("R");
