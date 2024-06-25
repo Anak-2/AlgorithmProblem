@@ -1,6 +1,5 @@
-package dp;
+package algorithm.dp;
 
-import java.util.*;
 public class 등굣길 {
 
     public static void main(String[] args) {

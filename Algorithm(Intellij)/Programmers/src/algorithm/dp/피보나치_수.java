@@ -1,4 +1,4 @@
-package dp;
+package algorithm.dp;
 
 public class 피보나치_수 {
     public static void main(String[] args) {

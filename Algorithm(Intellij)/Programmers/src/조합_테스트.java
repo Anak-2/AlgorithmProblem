@@ -1,4 +1,4 @@
-public class 조합_테스트 {
+public class 조합_테스트{
 
     static boolean[] visited;
     static int cnt;
@@ -14,27 +14,12 @@ public class 조합_테스트 {
 
             visited = new boolean[arr.length];
 
-            permutation(arr, 0);
+            // 6 P 3 구하기 (6개 중에 순서를 포함하여 3개 뽑기)
+            permutation(arr, 0, 3);
         }
 
-        static void permutation(int[] arr, int curIdx){
-            if(curIdx == arr.length){
-                cnt++;
-                int idx = 0;
-                for(boolean b : visited){
-                    if(b){
-                        System.out.print(arr[idx]+" ");
-                    }
-                    idx++;
-                }
-                System.out.println("-----------");
-                return;
-            }
+        static void permutation(int[] arr, int curIdx, int max){
 
-            visited[curIdx] = true;
-            permutation(arr, curIdx+1);
-            visited[curIdx] = false;
-            permutation(arr, curIdx+1);
         }
     }
 }

@@ -1,4 +1,4 @@
-package dp;
+package algorithm.dp;
 
 public class 사칙연산 {
 
