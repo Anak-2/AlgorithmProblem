@@ -1,0 +1,22 @@
+plugins {
+    id 'java'
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+
+group 'com.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.assertj:assertj-core:3.21.0' // AssertJ 추가
+}
+
+test {
+    useJUnitPlatform()
+}
