@@ -35,8 +35,9 @@ public class 당구_연습 {
                 Point p = new Point(ball[0], ball[1]);
                 for(String eachCase : cases){
                     Point flipedPoint = flipPoint(startP, new Point(p), eachCase);
-                    min = Math.min(min, (int) flipedPoint.getDistance(startP));
-                    System.out.println(min);
+                    if(flipedPoint != null) {
+                        min = Math.min(min, (int) flipedPoint.getDistance(startP));
+                    }
                 }
                 answerList.add(min);
             }
@@ -52,22 +53,29 @@ public class 당구_연습 {
             int val = Integer.parseInt(arr[1]);
             if(axis.equals("x")){
                 if(val > 0){
-                    p.x += M - p.x;
+                    p.x += (M - p.x)*2;
                 }else{
-                    p.x += M;
+                    p.x = -1 * p.x;
                 }
                 if(calSlope(startP, copyP) == calSlope(startP, p)){
-                    return copyP;
+                    int smallX = Math.min(copyP.x, p.x);
+                    int bigX = Math.max(copyP.x, p.x);
+                    if(startP.x > bigX || startP.x < smallX){
+                        return null;
+                    }
                 }
             }else if(axis.equals("y")){
                 if(val > 0){
-                    p.y += N - p.y;
+                    p.y += (N - p.y)*2;
                 }else{
-                    p.y += N;
+                    p.y = -1 * p.y;
                 }
                 if(calSlope(startP, copyP) == calSlope(startP, p)){
-                    System.out.println("기울기 같음");
-                    return copyP;
+                    int smallY = Math.min(copyP.y, p.y);
+                    int bigY = Math.max(copyP.y, p.y);
+                    if(startP.y > bigY || startP.y < smallY){
+                        return null;
+                    }
                 }
             }else{
                 System.out.println("axis는 x 또는 y");
@@ -76,7 +84,8 @@ public class 당구_연습 {
         }
 
         public static double calSlope(Point a, Point b){
-            return (double) (b.y - a.y) / (b.x - a.x);
+            double slope = (double) (b.y - a.y) / (b.x - a.x);
+            return slope;
         }
     }
 
