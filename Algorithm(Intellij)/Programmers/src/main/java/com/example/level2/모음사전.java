@@ -5,65 +5,72 @@ import java.util.List;
 
 public class 모음사전 {
     public static void main(String[] args) {
-        System.out.println(Solution.solution("I"));
+        Solution s = new Solution();
+        System.out.println(s.solution("I"));
     }
 
     static class Solution {
 
-        static int order = 0;
+        static int order = 1;
         static String answerWord;
         static List<Character> curList = new ArrayList<>();
 
-        public static int solution(String word) {
+        public int solution(String word) {
             answerWord = word;
             curList.add('A');
-            stretch();
+            stretchOrIncrease();
 
             return order;
         }
 
-        public static void stretch() {
-            System.out.println(curList);
+        private void stretchOrIncrease() {
             if(convertCharListToString(curList).equals(answerWord)){
                 return;
             }
 
-            if (curList.size() < 5) {
+            if (!isLengthFive(curList)) {
                 curList.add('A');
                 order++;
-                stretch();
+                stretchOrIncrease();
             } else {
                 increaseChar();
             }
         }
 
-        public static void increaseChar() {
+        private boolean isLengthFive(List<Character> curList){
+            return curList.size() == 5;
+        }
+
+        private void increaseChar() {
+            // 재귀함수의 끝나는 조건
+            System.out.println(curList);
             if(convertCharListToString(curList).equals(answerWord)){
                 return;
             }
 
             int lastIndex = curList.size() - 1;
             Character curChar = curList.get(lastIndex);
+
             switch (curChar) {
                 case 'A':
                     curList.set(lastIndex, 'E');
                     order++;
-                    increaseChar();
+                    stretchOrIncrease();
                     break;
                 case 'E':
                     curList.set(lastIndex, 'I');
                     order++;
-                    increaseChar();
+                    stretchOrIncrease();
                     break;
                 case 'I':
                     curList.set(lastIndex, 'O');
                     order++;
-                    increaseChar();
+                    stretchOrIncrease();
                     break;
                 case 'O':
                     curList.set(lastIndex, 'U');
                     order++;
-                    increaseChar();
+                    stretchOrIncrease();
                     break;
                 case 'U':
                     shrinkAndIncrease();
@@ -73,7 +80,7 @@ public class 모음사전 {
             }
         }
 
-        public static void shrinkAndIncrease() {
+        private void shrinkAndIncrease() {
             if(convertCharListToString(curList).equals(answerWord)){
                 return;
             }
@@ -88,46 +95,16 @@ public class 모음사전 {
             }
 
             curList.remove(lastIndex);
-            lastIndex -= 1;
-
-            switch (curChar) {
-                case 'A':
-                    curList.set(lastIndex, 'E');
-                    order++;
-                    stretch();
-                    return;
-                case 'E':
-                    curList.set(lastIndex, 'I');
-                    order++;
-                    stretch();
-                    return;
-                case 'I':
-                    curList.set(lastIndex, 'O');
-                    order++;
-                    stretch();
-                    return;
-                case 'O':
-                    curList.set(lastIndex, 'U');
-                    order++;
-                    stretch();
-                    return;
-                case 'U':
-                    shrinkAndIncrease();
-                    return;
-                default:
-                    System.out.println("Error");
-            }
+            increaseChar();
         }
 
-        public static String convertCharListToString(List<Character> charList) {
+        private String convertCharListToString(List<Character> charList) {
             StringBuilder stringBuilder = new StringBuilder(charList.size());
 
-            // ArrayList의 각 문자를 StringBuilder에 추가
             for (char c : charList) {
                 stringBuilder.append(c);
             }
 
-            // StringBuilder를 문자열로 변환하여 반환
             return stringBuilder.toString();
         }
     }
