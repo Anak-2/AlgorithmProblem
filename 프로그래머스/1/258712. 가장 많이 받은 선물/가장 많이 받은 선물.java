@@ -1,43 +1,51 @@
-import java.util.HashMap;
+import java.util.*;
 
 class Solution {
-    public int solution(String[] friends, String[] gifts) {
-        int answer = 0;
-        int friendsLenght = friends.length;
-        HashMap<String, Integer> dic = new HashMap<>();
-        int[] giftDegree = new int[friendsLenght];
-        int[][] giftGraph = new int[friendsLenght][friendsLenght];
-        
-        for ( int i = 0; i < friendsLenght; i++ ) {
-            dic.put(friends[i], i);
-        }
-        
-        for ( String gift : gifts ) {
-            String[] giftName = gift.split(" ");
-            giftDegree[dic.get(giftName[0])]++;
-            giftDegree[dic.get(giftName[1])]--;
-            giftGraph[dic.get(giftName[0])][dic.get(giftName[1])]++;    
-        }
-        
-        for ( int i =0; i< friendsLenght; i++) {
-            int num = 0;
-            for ( int j = 0; j< friendsLenght; j++) {
-                if ( i == j) {
-                    continue;
-                }    
-                
-                if (giftGraph[i][j] > giftGraph[j][i] ||
-                     (giftGraph[i][j] == giftGraph[j][i] && giftDegree[i] > giftDegree[j])) {
-                        num++;
+
+        public int solution(String[] friends, String[] gifts) {
+            Map<String, Integer> friendMap = new HashMap<>();
+            int index = 0;
+            for(String f : friends){
+                friendMap.put(f, index);
+                index++;
+            }
+            int friendSize = friends.length;
+            // 주고 받은 기록
+            int[][] giftRecord = new int[friendSize][friendSize];
+            // 선물 지수
+            int[] giftPriority = new int[friendSize];
+            for(String g : gifts){
+                String[] gSplit = g.split(" ");
+                String from = gSplit[0];
+                String to = gSplit[1];
+
+                int give = friendMap.get(from);
+                int receive = friendMap.get(to);
+                giftRecord[give][receive]++;
+                giftPriority[give]++;
+                giftPriority[receive]--;
+            }
+
+            int[] whoGetMany = new int[friendSize];
+            // 주고 받은 기록 확인
+            for(int i = 0; i < friendSize; i++){
+                for(int j = i + 1; j < friendSize; j++){
+                    // 주고 받은게 같거나 없으면 선물 지수
+                    if(giftRecord[i][j] == giftRecord[j][i]){
+                        if(giftPriority[i] != giftPriority[j]){
+                            whoGetMany[giftPriority[i] > giftPriority[j] ? i : j]++;
+                        }
+                    }else {
+                        whoGetMany[giftRecord[i][j] > giftRecord[j][i] ? i : j]++;
                     }
+                }
             }
-            
-            if ( answer < num) {
-                answer = num;
+
+            int max = 0;
+            for(int w : whoGetMany){
+                max = Math.max(w, max);
             }
-            
+
+            return max;
         }
-        
-        return answer;
     }
-}
