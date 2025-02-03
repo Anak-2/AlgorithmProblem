@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="ListExample" tests="1" skipped="0" failures="0" errors="0" timestamp="2024-08-13T02:54:47" hostname="DESKTOP-RRFEAJR" time="0.018">
-  <properties/>
-  <testcase name="listGetMethod()" classname="ListExample" time="0.018"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>
