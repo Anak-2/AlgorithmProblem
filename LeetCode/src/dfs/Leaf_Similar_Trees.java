@@ -3,7 +3,7 @@ package dfs;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Maximum_Depth_of_Binary_Tree {
+class Leaf_Similar_Trees {
 
     class Solution {
         public boolean leafSimilar(TreeNode root1, TreeNode root2) {
@@ -16,7 +16,13 @@ public class Maximum_Depth_of_Binary_Tree {
             if(root2Leaf.size() != listSize) return false;
 
             for(int i = 0; i < listSize; i++) {
-                if(!root1Leaf.get(i).equals(root2Leaf.get(i))) return false;
+                System.out.println(root1Leaf.get(i));
+                System.out.println(root2Leaf.get(i));
+                System.out.println(200 == 200);
+
+                System.out.println(root1Leaf.get(i) != root2Leaf.get(i));
+
+                if(root1Leaf.get(i) != root2Leaf.get(i)) return false;
             }
             return true;
         }
